@@ -26,6 +26,7 @@ Requires:	net-tools
 Requires:	kde4-icons-oxygen
 Requires:	sitecopy
 Requires:	ruby-owncloud-admin
+Requires:	PackageKit-gtk-module
 #Requires:	ocsync-plugin-sftp
 #Requires:	ocsync-plugin-smb
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
