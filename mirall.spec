@@ -10,39 +10,40 @@ Group:		Libraries
 Source0:	http://download.owncloud.com/download/%{name}-%{version}.tar.bz2
 # Source0-md5:	05a69082b4e940b4282c2b05344c143a
 URL:		http://www.owncloud.org
+BuildRequires:	QtGui-devel
+BuildRequires:	QtTest-devel
+BuildRequires:	QtWebKit-devel
 BuildRequires:	check
 BuildRequires:	cmake
 BuildRequires:	doxygen
+BuildRequires:	kde4-icons-oxygen
 BuildRequires:	libstdc++-devel
 BuildRequires:	ocsync-devel
-BuildRequires:	QtGui-devel
-BuildRequires:	QtWebKit-devel
-BuildRequires:	QtTest-devel
-BuildRequires:	kde4-icons-oxygen
-Requires:	ocsync
-Requires:	iproute2
-Requires:	net-tools
-Requires:	net-tools
-Requires:	kde4-icons-oxygen
-Requires:	sitecopy
-Requires:	ruby-owncloud-admin
 Requires:	PackageKit-gtk-module
+Requires:	iproute2
+Requires:	kde4-icons-oxygen
+Requires:	net-tools
+Requires:	net-tools
+Requires:	ocsync
 #Requires:	ocsync-plugin-sftp
 #Requires:	ocsync-plugin-smb
+Requires:	ruby-owncloud-admin
+Requires:	sitecopy
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Mirall is the the QT baesd frontend desktop client for owncloud using ocsync as a backend.
+Mirall is the the QT baesd frontend desktop client for owncloud using
+ocsync as a backend.
 
 %package -n owncloud-client
 Summary:	Desktop file sync client for owncloud, a Dropbox-like directory sharing and syncronization tool
 Group:		Applications
-Requires:	ocsync-owncloud
 Requires:	%{name} = %{version}-%{release}
+Requires:	ocsync-owncloud
 
 %description -n owncloud-client
-Meta package to install the front end client for owncloud, a Dropbox like directory
-sharing and syncronization tool.
+Meta package to install the front end client for owncloud, a Dropbox
+like directory sharing and syncronization tool.
 
 %package devel
 Summary:	Header files for %{name}
@@ -99,9 +100,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libowncloudsync.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libowncloudsync.so.0
 %{_desktopdir}/owncloud.desktop
-%{_datadir}/icons/hicolor/48x48/apps/owncloud.png
+%{_iconsdir}/hicolor/48x48/apps/owncloud.png
 
 %files devel
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libowncloudsync.so
 
 %files -n owncloud-client
