@@ -1,10 +1,11 @@
 # TODO:
 # * Fix ocsync packaging for and fix plugin dependencies here
 # * Fix and package lang stuff
+# * Package ruby gem based cli
 Summary:	Desktop file sync client for directory sharing and syncronization
 Name:		mirall
 Version:	1.4.0
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Libraries
 Source0:	http://download.owncloud.com/download/%{name}-%{version}.tar.bz2
@@ -27,7 +28,7 @@ Requires:	net-tools
 Requires:	ocsync
 #Requires:	ocsync-plugin-sftp
 #Requires:	ocsync-plugin-smb
-Requires:	ruby-owncloud-admin
+#Requires:	ruby-owncloud-admin
 Requires:	sitecopy
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -91,6 +92,9 @@ cd build
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc README.md COPYING
@@ -98,7 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/ownCloud
 %{_sysconfdir}/ownCloud/sync-exclude.lst
 %attr(755,root,root) %{_libdir}/libowncloudsync.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libowncloudsync.so.0
+%ghost %{_libdir}/libowncloudsync.so.0
 %{_desktopdir}/owncloud.desktop
 %{_iconsdir}/hicolor/48x48/apps/owncloud.png
 
