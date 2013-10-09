@@ -21,6 +21,7 @@ BuildRequires:	kde4-icons-oxygen
 BuildRequires:	libstdc++-devel
 BuildRequires:	ocsync-devel
 BuildRequires:	qt4-build
+BuildRequires:	qt4-linguist
 Requires:	PackageKit-gtk-module
 Requires:	iproute2
 Requires:	kde4-icons-oxygen
