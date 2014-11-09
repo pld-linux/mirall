@@ -5,7 +5,7 @@
 Summary:	Desktop file sync client for directory sharing and syncronization
 Name:		mirall
 Version:	1.7.0
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Libraries
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
@@ -31,15 +31,14 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Mirall is the the QT baesd frontend desktop client for owncloud using
 ocsync as a backend.
 
-%package -n owncloud-client
-Summary:	Desktop file sync client for owncloud, a Dropbox-like directory sharing and syncronization tool
+%package nautilus
+Summary:	A nautilus extension for %{name}
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	ocsync-owncloud >= 0.90.2
+Requires:	nautilus-python
 
-%description -n owncloud-client
-Meta package to install the front end client for owncloud, a Dropbox
-like directory sharing and syncronization tool.
+%description nautilus
+A mirall extension to nautilus file browser.
 
 %package devel
 Summary:	Header files for %{name}
@@ -104,8 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %ghost %{_libdir}/libowncloudsync.so.0
 %attr(755,root,root) %{_libdir}/libocsync.so.*
 %{_desktopdir}/owncloud.desktop
-%{_iconsdir}/hicolor/*/apps/owncloud.png
-%{_iconsdir}/hicolor/*/apps/ownCloud*.png
+%{_iconsdir}/hicolor/*/apps/own*.png
 %dir %{_datadir}/owncloud
 %dir %{_datadir}/owncloud/i18n
 %{_datadir}/owncloud/i18n/*
@@ -121,4 +119,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/owncloudsync/creds
 %{_includedir}/owncloudsync/mirall/*
 %{_includedir}/owncloudsync/creds/*
+
+%files nautilus
+%defattr(644,root,root,755)
+%{_datadir}/nautilus-python/extensions/*.py
 
