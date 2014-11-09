@@ -4,12 +4,12 @@
 # * Package ruby gem based cli
 Summary:	Desktop file sync client for directory sharing and syncronization
 Name:		mirall
-Version:	1.6.2
+Version:	1.7.0
 Release:	0.1
 License:	GPL v2
 Group:		Libraries
-Source0:	http://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
-# Source0-md5:	52518b622e9b2c151e64a4b56bcf2414
+Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
+# Source0-md5:	f662f4510ef26b5484f754304f8d9295
 URL:		http://www.owncloud.org
 BuildRequires:	QtGui-devel
 BuildRequires:	QtTest-devel
@@ -105,6 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libocsync.so.*
 %{_desktopdir}/owncloud.desktop
 %{_iconsdir}/hicolor/*/apps/owncloud.png
+%{_iconsdir}/hicolor/*/apps/ownCloud*.png
 %dir %{_datadir}/owncloud
 %dir %{_datadir}/owncloud/i18n
 %{_datadir}/owncloud/i18n/*
