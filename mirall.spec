@@ -2,12 +2,13 @@
 # Conditional build:
 %bcond_without	qt4		# build Qt4
 %bcond_without	nautilus		# build Nautilus extension
+%bcond_with	tests		# build without tests
 
 %define	qtver	4.7.0
 Summary:	Desktop file sync client for directory sharing and syncronization
 Name:		mirall
 Version:	1.7.0
-Release:	0.4
+Release:	0.6
 License:	GPL v2
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
@@ -29,6 +30,10 @@ BuildRequires:	QtWebKit-devel >= %{qtver}
 BuildRequires:	QtXmlPatterns-devel >= %{qtver}
 BuildRequires:	qt4-build
 BuildRequires:	qt4-linguist
+%endif
+%if %{with tests}
+%{?with_qt4:BuildRequires: QtTest}
+BuildRequires:	cmocka-devel
 %endif
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	gtk-update-icon-cache
@@ -87,6 +92,7 @@ cd build
 
 %{__make}
 %{__make} doc-man
+%{?with_tests:%{__make} test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
