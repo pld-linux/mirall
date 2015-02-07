@@ -7,12 +7,12 @@
 %define	qtver	4.7.0
 Summary:	Desktop file sync client for directory sharing and syncronization
 Name:		mirall
-Version:	1.7.0
-Release:	0.6
+Version:	1.7.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
-# Source0-md5:	f662f4510ef26b5484f754304f8d9295
+# Source0-md5:	5355f5dee2beb2d2dc39c8ad77511c0b
 URL:		https://owncloud.org/install/#desktop
 BuildRequires:	cmake >= 2.8
 BuildRequires:	libstdc++-devel
