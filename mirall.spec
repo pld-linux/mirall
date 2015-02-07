@@ -17,12 +17,16 @@ BuildRequires:	check
 BuildRequires:	cmake >= 2.8
 BuildRequires:	doxygen
 BuildRequires:	libstdc++-devel
+BuildRequires:	neon-devel
 BuildRequires:	sed >= 4.0
+BuildRequires:	sphinx-pdg
 %if %{with qt4}
 BuildRequires:	QtGui-devel >= %{qtver}
 BuildRequires:	QtKeychain-devel
+BuildRequires:	QtSql-devel >= %{qtver}
 BuildRequires:	QtTest-devel >= %{qtver}
 BuildRequires:	QtWebKit-devel >= %{qtver}
+BuildRequires:	QtXmlPatterns-devel >= %{qtver}
 BuildRequires:	qt4-build
 BuildRequires:	qt4-linguist
 %endif
