@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	qt4		# build Qt4
 %bcond_without	nautilus		# build Nautilus extension
-%bcond_with	tests		# build without tests
+%bcond_without	tests		# build without tests
 
 %define	qtver	4.7.0
 Summary:	Desktop file sync client for directory sharing and syncronization
@@ -73,6 +73,10 @@ Header files for %{name}
 
 # Keep tests in build dir
 %{__sed} -i -e "s#\"/tmp#\"$(pwd)#g" test/test*.h
+
+# touch is in /bin
+# https://github.com/owncloud/client/pull/2793
+%{__sed} -i -e 's,/usr/bin/touch,/bin/touch,' test/testfolderwatcher.h
 
 %if %{without nautilus}
 %{__sed} -i -e "s/add_subdirectory(nautilus)//" shell_integration/CMakeLists.txt
