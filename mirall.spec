@@ -2,6 +2,7 @@
 # * Fix ocsync packaging for and fix plugin dependencies here
 # * Fix and package lang stuff
 # * Package ruby gem based cli
+%define	qtver	4.7.0
 Summary:	Desktop file sync client for directory sharing and syncronization
 Name:		mirall
 Version:	1.7.0
@@ -10,25 +11,27 @@ License:	GPL v2
 Group:		Libraries
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
 # Source0-md5:	f662f4510ef26b5484f754304f8d9295
-URL:		http://www.owncloud.org
-BuildRequires:	QtGui-devel
-BuildRequires:	QtTest-devel
-BuildRequires:	QtWebKit-devel
-BuildRequires:	QtKeychain-devel
+URL:		https://owncloud.org/install/#desktop
 BuildRequires:	check
-BuildRequires:	cmake
+BuildRequires:	cmake >= 2.8
 BuildRequires:	doxygen
 BuildRequires:	kde4-icons-oxygen
 BuildRequires:	libstdc++-devel
 BuildRequires:	qt4-build
 BuildRequires:	qt4-linguist
+%if %{with qt4}
+BuildRequires:	QtGui-devel >= %{qtver}
+BuildRequires:	QtKeychain-devel
+BuildRequires:	QtTest-devel >= %{qtver}
+BuildRequires:	QtWebKit-devel >= %{qtver}
+%endif
 Requires:	iproute2
 Requires:	kde4-icons-oxygen
 Requires:	net-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Mirall is the the QT baesd frontend desktop client for owncloud using
+Mirall is the the QT based frontend desktop client for owncloud using
 ocsync as a backend.
 
 %package nautilus
@@ -51,40 +54,29 @@ Header files for %{name}
 %setup -q
 
 %build
-if test ! -e "build"; then
-	%{__mkdir} build
-fi
-
+install -d build
 cd build
 
 %cmake \
 	-DCSYNC_INCLUDE_PATH=%{_includedir}/ocsync \
-	-DCMAKE_C_FLAGS:STRING="%{optflags}" \
-	-DCMAKE_CXX_FLAGS:STRING="%{optflags}" \
-	-DCMAKE_SKIP_RPATH=ON \
-	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DSYSCONF_INSTALL_DIR=%{_sysconfdir} \
-	-DPREFIX=%{_prefix} \
-	-DSYSCONFDIR=%{_sysconfdir} \
-	$RPM_BUILD_ROOT/%{name}-%{version} \
+	-DWITH_ICONV=ON \
+	-DDOC=ON \
+	-DUNIT_TESTING=ON \
+	-DCMAKE_DISABLE_FIND_PACKAGE_Libsmbclient=OFF \
+	-DCMAKE_DISABLE_FIND_PACKAGE_LibSSH=OFF \
+	-DBUILD_WITH_QT4=ON \
 	..
 
 %{__make}
 %{__make} doc
 
-cd ..
-
 %install
 rm -rf $RPM_BUILD_ROOT
-
-cd build
-
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv ${RPM_BUILD_ROOT}/%{_libdir}/owncloud/* ${RPM_BUILD_ROOT}/%{_libdir}/
-rmdir ${RPM_BUILD_ROOT}/%{_libdir}/owncloud
+mv $RPM_BUILD_ROOT%{_libdir}/owncloud/* $RPM_BUILD_ROOT%{_libdir}
+rmdir $RPM_BUILD_ROOT%{_libdir}/owncloud
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -97,6 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.md COPYING ChangeLog
 %attr(755,root,root) %{_bindir}/owncloud
 %attr(755,root,root) %{_bindir}/owncloudcmd
+%{_mandir}/man1/owncloud.1*
+%{_mandir}/man1/owncloudcmd.1*
 %dir %{_sysconfdir}/ownCloud
 %{_sysconfdir}/ownCloud/sync-exclude.lst
 %attr(755,root,root) %{_libdir}/libowncloudsync.so.*.*.*
@@ -123,4 +117,3 @@ rm -rf $RPM_BUILD_ROOT
 %files nautilus
 %defattr(644,root,root,755)
 %{_datadir}/nautilus-python/extensions/*.py
-
