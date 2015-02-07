@@ -17,6 +17,7 @@ URL:		https://owncloud.org/install/#desktop
 BuildRequires:	cmake >= 2.8
 BuildRequires:	libstdc++-devel
 BuildRequires:	neon-devel
+BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 BuildRequires:	sphinx-pdg
 %if %{with qt4}
