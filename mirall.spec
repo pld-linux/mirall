@@ -70,6 +70,9 @@ Header files for %{name}
 %prep
 %setup -q
 
+# Keep tests in build dir
+%{__sed} -i -e "s#\"/tmp#\"$(pwd)#g" test/test*.h
+
 %if %{without nautilus}
 %{__sed} -i -e "s/add_subdirectory(nautilus)//" shell_integration/CMakeLists.txt
 %endif
@@ -90,7 +93,13 @@ cd build
 
 %{__make}
 %{__make} doc-man
-%{?with_tests:%{__make} test}
+
+%if %{with tests}
+# 1 test needs an existing ${HOME}/.config directory
+install -d .config
+%{__make} test \
+	HOME=$(pwd)
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
