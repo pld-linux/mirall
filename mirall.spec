@@ -10,7 +10,7 @@
 Summary:	Desktop file sync client for directory sharing and syncronization
 Name:		mirall
 Version:	1.7.0
-Release:	0.2
+Release:	0.3
 License:	GPL v2
 Group:		Libraries
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
@@ -19,7 +19,6 @@ URL:		https://owncloud.org/install/#desktop
 BuildRequires:	check
 BuildRequires:	cmake >= 2.8
 BuildRequires:	doxygen
-BuildRequires:	kde4-icons-oxygen
 BuildRequires:	libstdc++-devel
 %if %{with qt4}
 BuildRequires:	QtGui-devel >= %{qtver}
@@ -30,7 +29,6 @@ BuildRequires:	qt4-build
 BuildRequires:	qt4-linguist
 %endif
 Requires:	iproute2
-Requires:	kde4-icons-oxygen
 Requires:	net-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
