@@ -14,9 +14,7 @@ Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
 # Source0-md5:	f662f4510ef26b5484f754304f8d9295
 URL:		https://owncloud.org/install/#desktop
-BuildRequires:	check
 BuildRequires:	cmake >= 2.8
-BuildRequires:	doxygen
 BuildRequires:	libstdc++-devel
 BuildRequires:	neon-devel
 BuildRequires:	sed >= 4.0
