@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	qt4		# build Qt4
+%bcond_without	nautilus		# build Nautilus extension
 
 # TODO:
 # * Fix ocsync packaging for and fix plugin dependencies here
@@ -19,7 +20,9 @@ URL:		https://owncloud.org/install/#desktop
 BuildRequires:	check
 BuildRequires:	cmake >= 2.8
 BuildRequires:	doxygen
+BuildRequires:	sed >= 4.0
 BuildRequires:	libstdc++-devel
+%{?with_nautilus:BuildRequires:	nautilus-python-devel}
 %if %{with qt4}
 BuildRequires:	QtGui-devel >= %{qtver}
 BuildRequires:	QtKeychain-devel
@@ -54,6 +57,10 @@ Header files for %{name}
 
 %prep
 %setup -q
+
+%if %{without nautilus}
+%{__sed} -i -e "s/add_subdirectory(nautilus)//" shell_integration/CMakeLists.txt
+%endif
 
 %build
 install -d build
@@ -119,6 +126,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/owncloudsync/mirall/*
 %{_includedir}/owncloudsync/creds/*
 
+%if %{with nautilus}
 %files nautilus
 %defattr(644,root,root,755)
 %{_datadir}/nautilus-python/extensions/*.py
+%endif
