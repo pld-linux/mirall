@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	qt4		# build Qt4
+
 # TODO:
 # * Fix ocsync packaging for and fix plugin dependencies here
 # * Fix and package lang stuff
@@ -17,13 +21,13 @@ BuildRequires:	cmake >= 2.8
 BuildRequires:	doxygen
 BuildRequires:	kde4-icons-oxygen
 BuildRequires:	libstdc++-devel
-BuildRequires:	qt4-build
-BuildRequires:	qt4-linguist
 %if %{with qt4}
 BuildRequires:	QtGui-devel >= %{qtver}
 BuildRequires:	QtKeychain-devel
 BuildRequires:	QtTest-devel >= %{qtver}
 BuildRequires:	QtWebKit-devel >= %{qtver}
+BuildRequires:	qt4-build
+BuildRequires:	qt4-linguist
 %endif
 Requires:	iproute2
 Requires:	kde4-icons-oxygen
@@ -64,7 +68,8 @@ cd build
 	-DUNIT_TESTING=ON \
 	-DCMAKE_DISABLE_FIND_PACKAGE_Libsmbclient=OFF \
 	-DCMAKE_DISABLE_FIND_PACKAGE_LibSSH=OFF \
-	-DBUILD_WITH_QT4=ON \
+	%{!?with_qt4:-DBUILD_LIBRARIES_ONLY=ON} \
+	%{?with_qt4:-DBUILD_WITH_QT4=ON} \
 	..
 
 %{__make}
@@ -74,6 +79,8 @@ cd build
 rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} -r $RPM_BUILD_ROOT/usr/share/doc/{html,latex}
 
 mv $RPM_BUILD_ROOT%{_libdir}/owncloud/* $RPM_BUILD_ROOT%{_libdir}
 rmdir $RPM_BUILD_ROOT%{_libdir}/owncloud
