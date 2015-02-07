@@ -31,6 +31,8 @@ BuildRequires:	qt4-build
 BuildRequires:	qt4-linguist
 %endif
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 Requires:	iproute2
 Requires:	net-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -102,6 +104,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
+
+%post
+%update_desktop_database
+%update_icon_cache hicolor
+
+%postun
+%update_desktop_database
+%update_icon_cache hicolor
 
 %files
 %defattr(644,root,root,755)
