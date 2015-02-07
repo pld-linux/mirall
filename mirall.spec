@@ -9,7 +9,7 @@ Name:		mirall
 Version:	1.7.0
 Release:	0.4
 License:	GPL v2
-Group:		Libraries
+Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
 # Source0-md5:	f662f4510ef26b5484f754304f8d9295
 URL:		https://owncloud.org/install/#desktop
@@ -78,7 +78,6 @@ cd build
 %cmake \
 	-DCSYNC_INCLUDE_PATH=%{_includedir}/ocsync \
 	-DWITH_ICONV=ON \
-	-DDOC=ON \
 	-DUNIT_TESTING=ON \
 	-DCMAKE_DISABLE_FIND_PACKAGE_Libsmbclient=OFF \
 	-DCMAKE_DISABLE_FIND_PACKAGE_LibSSH=OFF \
@@ -87,14 +86,12 @@ cd build
 	..
 
 %{__make}
-%{__make} doc
+%{__make} doc-man
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/{html,latex}
 
 mv $RPM_BUILD_ROOT%{_libdir}/owncloud/* $RPM_BUILD_ROOT%{_libdir}
 rmdir $RPM_BUILD_ROOT%{_libdir}/owncloud
