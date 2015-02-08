@@ -19,6 +19,7 @@ BuildRequires:	cmake >= 2.8
 BuildRequires:	libstdc++-devel
 BuildRequires:	neon-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(find_lang) >= 1.37
 BuildRequires:	sed >= 4.0
 BuildRequires:	sphinx-pdg
 %if %{with qt4}
@@ -120,6 +121,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%find_lang %{name} --with-qm
+
 mv $RPM_BUILD_ROOT%{_libdir}/owncloud/* $RPM_BUILD_ROOT%{_libdir}
 rmdir $RPM_BUILD_ROOT%{_libdir}/owncloud
 
@@ -137,7 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %update_desktop_database
 %update_icon_cache hicolor
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README.md COPYING ChangeLog
 %dir %{_sysconfdir}/ownCloud
@@ -150,7 +153,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/apps/own*.png
 %dir %{_datadir}/owncloud
 %dir %{_datadir}/owncloud/i18n
-%{_datadir}/owncloud/i18n/*
 
 %files libs
 %defattr(644,root,root,755)
