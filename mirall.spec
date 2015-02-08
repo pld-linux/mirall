@@ -43,17 +43,24 @@ Requires:	net-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Mirall is the the QT based frontend desktop client for owncloud using
+The ownCloudSync system lets you always have your latest files
+wherever you are. Just specify one or more folders on the local
+machine to and a server to synchronize to. You can configure more
+computers to synchronize to the same server and any change to the
+files on one computer will silently and reliably flow across to every
+other.
+
+Mirall is the the Qt based frontend desktop client for owncloud using
 ocsync as a backend.
 
 %package nautilus
-Summary:	A nautilus extension for %{name}
+Summary:	A Nautilus extension for %{name}
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	nautilus-python
 
 %description nautilus
-A mirall extension to nautilus file browser.
+A mirall extension to Nautilus file browser.
 
 %package libs
 Summary:	owncloudsync and ocsync libraries
