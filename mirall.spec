@@ -140,12 +140,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README.md COPYING ChangeLog
+%dir %{_sysconfdir}/ownCloud
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ownCloud/sync-exclude.lst
 %attr(755,root,root) %{_bindir}/owncloud
 %attr(755,root,root) %{_bindir}/owncloudcmd
 %{_mandir}/man1/owncloud.1*
 %{_mandir}/man1/owncloudcmd.1*
-%dir %{_sysconfdir}/ownCloud
-%{_sysconfdir}/ownCloud/sync-exclude.lst
 %{_desktopdir}/owncloud.desktop
 %{_iconsdir}/hicolor/*/apps/own*.png
 %dir %{_datadir}/owncloud
