@@ -1,0 +1,9 @@
+--- mirall-1.7.1/mirall.desktop.in~	2014-12-18 13:45:49.000000000 +0200
++++ mirall-1.7.1/mirall.desktop.in	2015-02-08 14:01:06.506976612 +0200
+@@ -1,5 +1,5 @@
+ [Desktop Entry]
+-Categories=Utility;X-SuSE-SyncUtility;
++Categories=Utility;Network;FileTransfer;
+ Type=Application
+ Exec=@APPLICATION_EXECUTABLE@
+ Name=@APPLICATION_NAME@ desktop sync client 

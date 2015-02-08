@@ -13,6 +13,7 @@ License:	GPL v2
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.bz2
 # Source0-md5:	5355f5dee2beb2d2dc39c8ad77511c0b
+Patch0:		desktop.patch
 URL:		https://owncloud.org/install/#desktop
 BuildRequires:	cmake >= 2.8
 BuildRequires:	libstdc++-devel
@@ -70,6 +71,7 @@ Header files for %{name}
 
 %prep
 %setup -q
+%patch0 -p1
 
 # Keep tests in build dir
 %{__sed} -i -e "s#\"/tmp#\"$(pwd)#g" test/test*.h
